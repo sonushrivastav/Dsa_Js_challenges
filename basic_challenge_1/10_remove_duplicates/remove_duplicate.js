@@ -10,8 +10,8 @@ function removeDuplicate(arr){
    return uniqueArr
 }
 
-function removeDuplicate(arr){
-    return Array.from(new Set(arr))
-}
+// function removeDuplicate(arr){
+//     return Array.from(new Set(arr))
+// }
 
 module.exports = removeDuplicate;
