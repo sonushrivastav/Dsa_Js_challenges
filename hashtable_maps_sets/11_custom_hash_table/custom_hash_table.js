@@ -63,7 +63,36 @@ class HashTable {
     // remove a key value pair from hash table
     remove(key){
         const index = this._hash(key,this.limt)
+       if(this.storage[index]){
+         if(this.storage[index].length === 1 && this.storage[index][0][0] === key){
+            delete this.storage[index]
+         }else{
+            for(let i =0;i<this.storage[index].length;i++){
+                if(this.storage[index][i][0] === key){
+                    delete this.storage[index][i]
+                    
+                }
+            }
+         }
+       }
+    }
 
+    has(key){
+        const index = this._hash(key,this.limt)
+
+        if(this.storage[index]){
+            for(let i=0; i<this.storage[index].length ;i++){
+                if(this.storage[index][i][0] === key){
+                    return true
+                }
+            }
+        }
+
+        return false
+    }
+
+    clear(){
+        this.storage = []
     }
         
 }
