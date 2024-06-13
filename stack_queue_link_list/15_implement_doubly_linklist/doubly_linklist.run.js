@@ -10,4 +10,10 @@ list.prepend(100)
 
 list.insertAt(2,"NEW")
 
+console.log(list.get(1).data);
+
+list.remove(2)
+
+console.log(list.contains(200));
+
 list.printAll()
