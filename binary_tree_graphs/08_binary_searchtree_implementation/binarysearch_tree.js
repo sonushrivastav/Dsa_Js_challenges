@@ -49,6 +49,84 @@ class BinarySearchTree{
     }
   }
 
+   // Search the tree for a node with the given value
+   lookup(value) {
+    // Start at the root
+    let currentNode = this.root;
+
+    // If the tree is empty, return null
+    if (!currentNode) {
+      return null;
+    }
+
+    // Traverse the tree
+    while (currentNode) {
+      // If the given value is less than the current node's value, go left
+      if (value < currentNode.value) {
+        currentNode = currentNode.left;
+      }
+      // If the given value is greater than the current node's value, go right
+      else if (value > currentNode.value) {
+        currentNode = currentNode.right;
+      }
+      // If the given value is equal to the current node's value, return the current node
+      else if (value === currentNode.value) {
+        return currentNode;
+      }
+    }
+
+    // If we get to the end of the tree without finding the given value, return null
+    return null;
+  }
+
+
+    // Remove a node from the tree
+    remove(value) {
+        const removeNode = (node, value) => {
+          // Base case: if the node is null, the value does not exist in the tree
+          if (node === null) {
+            return null;
+          }
+    
+          // If the value to be removed is less than the current node's value,
+          // move to the left subtree and recursively remove the value
+          if (value < node.value) {
+            node.left = removeNode(node.left, value);
+            return node;
+          }
+          // If the value to be removed is greater than the current node's value,
+          // move to the right subtree and recursively remove the value
+          else if (value > node.value) {
+            node.right = removeNode(node.right, value);
+            return node;
+          }
+          // If the current node's value is equal to the value to be removed
+          else {
+            // Case 1: Node with no child or only one child
+            if (node.left === null) {
+              return node.right;
+            } else if (node.right === null) {
+              return node.left;
+            }
+    
+            // Case 2: Node with two children
+            // Find the smallest value in the right subtree (successor)
+            let tempNode = node.right;
+            while (tempNode.left !== null) {
+              tempNode = tempNode.left;
+            }
+            // Replace the current node with the successor value
+            node.value = tempNode.value;
+            // Remove the successor value from the right subtree
+            node.right = removeNode(node.right, tempNode.value);
+            return node;
+          }
+        };
+    
+        // Start at the root
+        this.root = removeNode(this.root, value);
+      }
+
   printTree() {
     // In-order traversal
     const printNode = (node) => {
